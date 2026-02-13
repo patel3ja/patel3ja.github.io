@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Important Question for Isha 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ff758c, #ff7eb3);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    h1 {
+      margin-top: 120px;
+      font-size: 38px;
+      padding: 0 20px;
+    }
+
+    .buttons {
+      margin-top: 40px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    #yesBtn {
+      background-color: #ff2e63;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: white;
+      color: #ff2e63;
+      position: absolute;
+    }
+
+    .heart {
+      position: absolute;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .countdown {
+      font-size: 60px;
+      margin-top: 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="mainContent">
+  <h1>
+    Isha… I have a very serious question.<br><br>
+    And by serious, I mean extremely important.<br><br>
+    Will you be my Valentine? 💖
+  </h1>
+
+  <div class="buttons">
+    <button id="yesBtn">YES obviously 💘</button>
+    <button id="noBtn">No 😅</button>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const bgMusic = document.getElementById("bgMusic");
+
+  // Floating hearts background
+  function createHearts() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+  setInterval(createHearts, 500);
+
+  // Make the "No" button run away
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // YES button click
+  yesBtn.addEventListener("click", () => {
+
+    bgMusic.play();
+
+    let countdown = 3;
+    document.body.innerHTML = `<div class="countdown">${countdown}</div>`;
+
+    const interval = setInterval(() => {
+      countdown--;
+      if (countdown > 0) {
+        document.querySelector(".countdown").innerHTML = countdown;
+      } else {
+        clearInterval(interval);
+        showFinalMessage();
+      }
+    }, 1000);
+  });
+
+  function showFinalMessage() {
+    document.body.innerHTML = `
+      <h1 class="fade-in" style="margin-top:150px; padding:20px;">
+        Knew it. Excellent decision! 😌<br><br>
+        You have officially secured<br>
+        the best Valentine of the year. 💕<br><br>
+        Lucky you.
+      </h1>
+    `;
+    launchConfetti();
+  }
+
+  function launchConfetti() {
+    for (let i = 0; i < 150; i++) {
+      const confetti = document.createElement("div");
+      confetti.innerHTML = "💖";
+      confetti.style.position = "absolute";
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.top = "-20px";
+      confetti.style.fontSize = "24px";
+      confetti.style.animation = "fall 3s linear forwards";
+      document.body.appendChild(confetti);
+    }
+  }
+</script>
+
+</body>
+</html>
